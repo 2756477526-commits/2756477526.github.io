@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAYFLOW｜全天状态饮品系统</title>
+  <meta name="description" content="DAYFLOW 不是普通功能饮料，而是一套围绕早、中、晚节律设计的全天状态饮品系统。" />
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+      color:#1c261e;
+      background:#f4f8f1;
+      line-height:1.7;
+    }
+    .wrap{
+      width:100%;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 24px;
+    }
+    .nav{
+      background:#ffffff;
+      border-bottom:1px solid #dfe8d9;
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav-inner{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .brand{
+      font-size:24px;
+      font-weight:800;
+      color:#2d4a2f;
+    }
+    .nav-links a{
+      margin-left:20px;
+      color:#5f6e62;
+      text-decoration:none;
+      font-size:14px;
+    }
+    .hero{
+      padding:64px 0 40px 0;
+      background:linear-gradient(180deg,#f7fbf4 0%, #eef5e7 100%);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:32px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:#e8f2e1;
+      color:#5b705d;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+    h1{
+      font-size:64px;
+      line-height:1.05;
+      margin:0 0 18px 0;
+      letter-spacing:-2px;
+    }
+    .lead{
+      font-size:18px;
+      color:#5f6e62;
+      max-width:650px;
+      margin:0 0 24px 0;
+    }
+    .btns a{
+      display:inline-block;
+      padding:14px 22px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:700;
+      margin-right:12px;
+      margin-bottom:10px;
+    }
+    .btn-primary{
+      background:#223023;
+      color:#fff;
+    }
+    .btn-secondary{
+      background:#fff;
+      color:#223023;
+      border:1px solid #d9e5d3;
+    }
+    .chips{
+      margin-top:18px;
+    }
+    .chip{
+      display:inline-block;
+      padding:8px 12px;
+      background:#ffffff;
+      border:1px solid #dbe6d5;
+      border-radius:999px;
+      color:#5f6e62;
+      font-size:13px;
+      margin:0 8px 8px 0;
+    }
+    .stage{
+      background:#ffffff;
+      border:1px solid #dbe6d5;
+      border-radius:28px;
+      padding:34px 24px;
+      min-height:560px;
+      box-shadow:0 10px 30px rgba(70,100,70,0.08);
+      text-align:center;
+      position:relative;
+    }
+    .bottle{
+      width:220px;
+      margin:30px auto 0 auto;
+    }
+    .cap{
+      width:110px;
+      height:32px;
+      background:#8fb78a;
+      border-radius:18px 18px 12px 12px;
+      margin:0 auto 10px auto;
+    }
+    .segment{
+      width:180px;
+      margin:0 auto;
+      border-radius:34px;
+      background:#f7fbf4;
+      border:1px solid #dbe6d5;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      color:#2d3a2e;
+      font-weight:800;
+    }
+    .segment small{
+      display:block;
+      margin-top:6px;
+      color:#6a776d;
+      font-size:12px;
+      font-weight:600;
+    }
+    .morning{height:120px;}
+    .day{height:140px;}
+    .night{height:120px;}
+    .ring{
+      width:110px;
+      height:12px;
+      background:#cfe1c8;
+      border-radius:999px;
+      margin:8px auto;
+    }
+    .bubble{
+      background:#eef5e8;
+      border-radius:18px;
+      padding:12px 14px;
+      font-size:13px;
+      color:#5f6e62;
+      margin:12px auto 0 auto;
+      max-width:260px;
+    }
+    section{
+      padding:56px 0;
+    }
+    .section-title{
+      margin-bottom:22px;
+    }
+    .section-title h2{
+      margin:0 0 10px 0;
+      font-size:42px;
+      line-height:1.1;
+      letter-spacing:-1px;
+    }
+    .section-title p{
+      margin:0;
+      color:#5f6e62;
+      max-width:760px;
+    }
+    .grid-2,.grid-3,.grid-4{
+      display:grid;
+      gap:18px;
+    }
+    .grid-2{grid-template-columns:repeat(2,1fr);}
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+    .grid-4{grid-template-columns:repeat(4,1fr);}
+    .card{
+      background:#ffffff;
+      border:1px solid #dbe6d5;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 8px 22px rgba(70,100,70,0.06);
+    }
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#e8f2e1;
+      color:#547756;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+    .card h3{
+      margin:0 0 10px 0;
+      font-size:24px;
+    }
+    .card p{
+      margin:0;
+      color:#5f6e62;
+    }
+    .timeline{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .step{
+      background:#ffffff;
+      border:1px solid #dbe6d5;
+      border-radius:26px;
+      padding:26px;
+    }
+    .step-num{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      background:#e8f2e1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:#547756;
+      margin-bottom:16px;
+    }
+    .pill{
+      display:inline-block;
+      padding:7px 11px;
+      border-radius:999px;
+      background:#f5f8f1;
+      border:1px solid #dbe6d5;
+      color:#5f6e62;
+      font-size:13px;
+      margin:10px 8px 0 0;
+    }
+    .quote{
+      background:#223023;
+      color:#fff;
+      border-radius:30px;
+      padding:48px 30px;
+      text-align:center;
+      font-size:32px;
+      line-height:1.4;
+      letter-spacing:-0.5px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fff;
+      border:1px solid #dbe6d5;
+      border-radius:24px;
+      overflow:hidden;
+    }
+    th,td{
+      padding:18px 16px;
+      border-bottom:1px solid #e5ede0;
+      text-align:left;
+    }
+    th{
+      background:#eef5e8;
+      color:#5f6e62;
+      font-size:14px;
+    }
+    tr:last-child td{border-bottom:none;}
+    .price-wrap{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+    .price-card{
+      background:#fff;
+      border:1px solid #dbe6d5;
+      border-radius:28px;
+      padding:28px;
+      box-shadow:0 8px 22px rgba(70,100,70,0.06);
+    }
+    .price{
+      font-size:48px;
+      font-weight:800;
+      margin:14px 0;
+    }
+    .check{
+      color:#5f6e62;
+      margin:10px 0;
+    }
+    .footer{
+      padding:50px 0 70px 0;
+      color:#5f6e62;
+    }
+    .footer-box{
+      border-top:1px solid #dbe6d5;
+      padding-top:24px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+    }
+    @media (max-width: 980px){
+      .hero-grid,.grid-2,.grid-3,.grid-4,.timeline,.price-wrap{
+        grid-template-columns:1fr;
+      }
+      h1{font-size:46px;}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">DAYFLOW</div>
+      <div class="nav-links">
+        <a href="#story">品牌故事</a>
+        <a href="#product">产品系统</a>
+        <a href="#philosophy">品牌理念</a>
+        <a href="#buy">购买</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">自由 · 健康 · 天然 · 可持续</div>
+        <h1>不是提神。<br>是重新设计你的一天。</h1>
+        <p class="lead">
+          DAYFLOW 不是普通功能饮料，而是一套围绕早、中、晚节律设计的全天状态饮品系统。
+          我们相信，真正好的状态，不该靠不断刺激和透支来维持，而应该来自更自然的启动、
+          更平稳的续航，以及被认真对待的恢复。
+        </p>
+        <div class="btns">
+          <a class="btn-primary" href="#buy">立即体验</a>
+          <a class="btn-secondary" href="#story">了解品牌</a>
+        </div>
+        <div class="chips">
+          <span class="chip">三段式饮品结构</span>
+          <span class="chip">全天状态管理</span>
+          <span class="chip">可持续生活方式</span>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3 style="margin:0 0 10px 0; font-size:28px;">全天状态饮品系统</h3>
+        <p style="margin:0;color:#5f6e62;">Morning · Day · Night</p>
+        <div class="bottle">
+          <div class="cap"></div>
+          <div class="segment morning">
+            MORNING
+            <small>自然启动 · 温和唤醒</small>
+          </div>
+          <div class="ring"></div>
+          <div class="segment day">
+            DAY
+            <small>平稳补给 · 持续输出</small>
+          </div>
+          <div class="ring"></div>
+          <div class="segment night">
+            NIGHT
+            <small>舒缓收束 · 恢复放松</small>
+          </div>
+        </div>
+        <div class="bubble">早上：轻轻带你进入状态</div>
+        <div class="bubble">白天：更稳地支持学习与工作</div>
+        <div class="bubble">晚上：让恢复重新回到日常生活里</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>品牌故事</h2>
+        <p>DAYFLOW 诞生于一个非常真实的问题：为什么现代人的日常补给，总是在“强撑”和“透支”之间反复摇摆？</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <span class="tag">为什么开始</span>
+          <h3>大多数人并不是真的缺刺激。</h3>
+          <p>学生在考试周靠咖啡硬撑，上班族在会议和加班之间不断续杯，创业者用高强度功能饮料去对抗长期疲惫。但很多人要的不是更猛，而是更稳。</p>
+        </div>
+        <div class="card">
+          <span class="tag">我们想做什么</span>
+          <h3>把状态管理升级成全天系统设计。</h3>
+          <p>DAYFLOW 希望重新组织一天的补给方式：早上帮助身体自然启动，中午帮助状态平稳续航，晚上帮助节奏慢慢收束。这不是一瓶单纯的饮料，而是一个围绕生活节律展开的品牌提案。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="product">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>产品系统</h2>
+        <p>这不是把很多功能硬塞进一瓶里，而是把一天真实会经历的状态变化，拆解成更合理的结构。</p>
+      </div>
+      <div class="timeline">
+        <div class="step">
+          <div class="step-num">早</div>
+          <h3>Morning｜温和唤醒</h3>
+          <p>早上的核心不是猛推，而是自然进入状态。这个阶段强调清爽、轻盈、低负担，让身体慢慢启动。</p>
+          <span class="pill">自然清醒</span>
+          <span class="pill">轻盈开始</span>
+          <span class="pill">低压唤醒</span>
+        </div>
+        <div class="step">
+          <div class="step-num">中</div>
+          <h3>Day｜平稳续航</h3>
+          <p>白天真正需要的不是短时间兴奋，而是更长时间的稳定支持。这个阶段强调平稳补给与持续输出。</p>
+          <span class="pill">平稳补给</span>
+          <span class="pill">持续输出</span>
+          <span class="pill">不易塌陷</span>
+        </div>
+        <div class="step">
+          <div class="step-num">晚</div>
+          <h3>Night｜恢复放松</h3>
+          <p>夜晚不应该继续透支。恢复不是效率的对立面，而是长期状态管理的重要一环。</p>
+          <span class="pill">舒缓感</span>
+          <span class="pill">恢复优先</span>
+          <span class="pill">节律友好</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-title">
+        <h2>我们的产品概念包含什么？</h2>
+        <p>用户不只要看到“长得特别”，更要立刻理解这款产品为什么有必要存在。</p>
+      </div>
+      <div class="grid-4">
+        <div class="card">
+          <span class="tag">结构</span>
+          <h3>三段式</h3>
+          <p>让用户一眼理解：这是一套全天状态系统，而不是普通单瓶饮料。</p>
+        </div>
+        <div class="card">
+          <span class="tag">逻辑</span>
+          <h3>节律化</h3>
+          <p>围绕身体节律做设计，而不是单纯放大提神感，逻辑更完整。</p>
+        </div>
+        <div class="card">
+          <span class="tag">体验</span>
+          <h3>温和感</h3>
+          <p>不是硬核刺激型，而是更轻、更柔和、更高级的能量体验。</p>
+        </div>
+        <div class="card">
+          <span class="tag">价值</span>
+          <h3>可持续</h3>
+          <p>不仅关注现在能不能醒，更关注今天结束以后是否还舒服、稳定。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="philosophy">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>品牌理念</h2>
+        <p>DAYFLOW 不想鼓励一种持续硬撑的人生。我们希望创造一种更自然、更长期、更可持续的生活节奏。</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <span class="tag">不透支</span>
+          <h3>我们不把身体当机器。</h3>
+          <p>很多产品默认用户只需要更快、更猛、更强的刺激，但身体不是永远可以被强行拉满的系统。DAYFLOW 更在意的是使用之后的整体感受。</p>
+        </div>
+        <div class="card">
+          <span class="tag">不对抗</span>
+          <h3>顺应节律，而不是对抗节律。</h3>
+          <p>一天里，不同时间段本来就有不同需求。真正高级的补给方式，不是粗暴统一，而是在合适时间提供合适支持。</p>
+        </div>
+        <div class="card">
+          <span class="tag">不焦虑</span>
+          <h3>让生活更有呼吸感。</h3>
+          <p>DAYFLOW 不是战斗型品牌，它更像陪伴型品牌。它想提醒用户：好状态不一定来自更用力，也可以来自更懂得照顾自己。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-title">
+        <h2>适用场景</h2>
+        <p>这不是概念性的“好想法”，而是可以融入真实生活的产品。</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <span class="tag">学习场景</span>
+          <h3>考试周 / 熬夜学习</h3>
+          <p>帮助学生在高压学习中保持更平稳的精神状态，而不是白天冲很高、晚上更崩溃。</p>
+        </div>
+        <div class="card">
+          <span class="tag">工作场景</span>
+          <h3>会议 / 提案 / 加班</h3>
+          <p>适合需要持续输出的人群，在工作流程里提供更稳定、更长期的状态支持。</p>
+        </div>
+        <div class="card">
+          <span class="tag">生活场景</span>
+          <h3>日常自我管理</h3>
+          <p>对那些重视健康、节律和生活品质的人来说，它是一种更高级的日常选择。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-title">
+        <h2>为什么它和传统功能饮料不同？</h2>
+        <p>官网必须把和咖啡、能量饮料的差别讲清楚。</p>
+      </div>
+      <table>
+        <tr>
+          <th>维度</th>
+          <th>DAYFLOW</th>
+          <th>传统刺激型饮品</th>
+        </tr>
+        <tr>
+          <td>核心逻辑</td>
+          <td><strong>围绕节律设计全天状态</strong></td>
+          <td>围绕提神设计单点刺激</td>
+        </tr>
+        <tr>
+          <td>体验感</td>
+          <td><strong>温和、平稳、轻盈</strong></td>
+          <td>冲高、刺激、回落</td>
+        </tr>
+        <tr>
+          <td>关注重点</td>
+          <td><strong>启动 + 续航 + 恢复</strong></td>
+          <td>只强调立刻清醒</td>
+        </tr>
+        <tr>
+          <td>品牌气质</td>
+          <td><strong>自由健康天然</strong></td>
+          <td>高压战斗感</td>
+        </tr>
+        <tr>
+          <td>生活方式主张</td>
+          <td><strong>可持续的美好生活</strong></td>
+          <td>短期效率优先</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="quote">
+        “我们不是在卖一瓶让你继续硬撑下去的饮料，<br>
+        而是在为一种更自由、更健康、更天然的生活节奏，提供新的选择。”
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-title">
+        <h2>可持续美好生活</h2>
+        <p>这里的可持续，不只是在讲环保，更是在讲一种更长久、更舒服、更不被透支的人生方式。</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <span class="tag">身体可持续</span>
+          <h3>减少反噬感</h3>
+          <p>减少那种“现在清醒、之后更空”的循环，让用户在一天结束后，仍然保有相对平稳的身体和情绪感受。</p>
+        </div>
+        <div class="card">
+          <span class="tag">生活可持续</span>
+          <h3>不再靠强撑推进生活</h3>
+          <p>真正有质量的生活，不应该建立在不断透支自己的前提上。DAYFLOW 代表的是一种更长期主义的自我管理方式。</p>
+        </div>
+        <div class="card">
+          <span class="tag">品牌可持续</span>
+          <h3>天然、轻盈、克制</h3>
+          <p>从视觉、语言到产品表达，我们都强调自然感和呼吸感，希望品牌本身就像一种舒服的生活状态。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="buy">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>购买方案</h2>
+        <p>从低门槛体验开始，再逐步进入完整系统，是这类新物种产品更合理的转化路径。</p>
+      </div>
+      <div class="price-wrap">
+        <div class="price-card">
+          <span class="tag">入门体验</span>
+          <h3>7天体验装</h3>
+          <div class="price">¥99</div>
+          <p style="color:#5f6e62;">适合第一次认识 DAYFLOW 的用户，用一周感受“温和但更稳”的变化。</p>
+          <div class="check">✓ 体验三段式补给逻辑</div>
+          <div class="check">✓ 建立品牌理念的直观感受</div>
+          <div class="check">✓ 低门槛进入新生活方式</div>
+          <div class="btns" style="margin-top:18px;">
+            <a class="btn-primary" href="#">立即购买</a>
+          </div>
+        </div>
+        <div class="price-card">
+          <span class="tag">完整方案</span>
+          <h3>30天状态系统</h3>
+          <div class="price">¥299</div>
+          <p style="color:#5f6e62;">更适合真正把“自由、健康、天然”的节奏带入日常，形成自己的状态管理习惯。</p>
+          <div class="check">✓ 更完整的长期体验</div>
+          <div class="check">✓ 更强的品牌留存与复购价值</div>
+          <div class="check">✓ 适合作为主推核心产品</div>
+          <div class="btns" style="margin-top:18px;">
+            <a class="btn-primary" href="#">立即订阅</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-title">
+        <h2>常见问题</h2>
+        <p>这部分让网站更完整，也更像真实品牌官网。</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>DAYFLOW 是功能饮料吗？</h3>
+          <p>它不是传统意义上的强刺激型功能饮料。它更强调围绕一天节律进行状态管理，是一种新的饮品使用方式。</p>
+        </div>
+        <div class="card">
+          <h3>为什么要做成早中晚三段式？</h3>
+          <p>因为一天不同时间段的身体需求并不一样。三段式结构能让用户更直观理解产品逻辑，也能更好承载品牌理念。</p>
+        </div>
+        <div class="card">
+          <h3>它适合哪些人？</h3>
+          <p>适合学生、上班族、创业者，以及所有在意身体感受、生活节律和自我管理的人。</p>
+        </div>
+        <div class="card">
+          <h3>DAYFLOW 的核心价值是什么？</h3>
+          <p>不是让你更猛，而是让你更稳。不是让你继续透支，而是让状态管理更自然、更长期、更可持续。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap footer-box">
+      <div>
+        <strong>DAYFLOW</strong><br>
+        为可持续的美好生活，重新设计一天的补给方式。
+      </div>
+      <div>Instagram · Xiaohongshu · Contact</div>
+    </div>
+  </footer>
+</body>
+</html>
